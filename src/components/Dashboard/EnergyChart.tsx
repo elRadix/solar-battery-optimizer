@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useEffect, useState } from "react";
 
 const energyData = [
   { month: "Jan", production: 450, consumption: 380, heatPump: 320 },
@@ -30,14 +31,28 @@ interface EnergyChartProps {
 }
 
 export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
+  const [key, setKey] = useState(0);
+
+  // Force a re-render when the component mounts to ensure proper sizing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setKey(prev => prev + 1);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Card className="mt-6 p-6">
       <h2 className="text-xl font-semibold mb-4">
         Energy Production vs Consumption
       </h2>
       <div className="h-[400px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={energyData}>
+        <ResponsiveContainer width="100%" height="100%" key={key}>
+          <LineChart
+            data={energyData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />
@@ -48,12 +63,14 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
               dataKey="production"
               stroke="#0EA5E9"
               name="Production"
+              strokeWidth={2}
             />
             <Line
               type="monotone"
               dataKey="consumption"
               stroke="#8B5CF6"
               name="Consumption"
+              strokeWidth={2}
             />
             {showDetailed && (
               <Line
@@ -61,6 +78,7 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
                 dataKey="heatPump"
                 stroke="#22C55E"
                 name="Heat Pump"
+                strokeWidth={2}
               />
             )}
           </LineChart>
