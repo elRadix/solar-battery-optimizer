@@ -2,25 +2,22 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatCard } from "@/components/Dashboard/StatCard";
 import { TabContent } from "@/components/Dashboard/TabContent";
-import { Battery, Home, LineChart, PiggyBank, Sun, Thermometer } from "lucide-react";
 import {
-  LineChart as RechartsLineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
-const energyData = [
-  { month: "Jan", production: 450, consumption: 380 },
-  { month: "Feb", production: 520, consumption: 420 },
-  { month: "Mar", production: 680, consumption: 550 },
-  { month: "Apr", production: 890, consumption: 710 },
-  { month: "May", production: 950, consumption: 780 },
-  { month: "Jun", production: 980, consumption: 820 },
-];
+  Battery,
+  BatteryCharging,
+  DollarSign,
+  Home,
+  Leaf,
+  LineChart,
+  PiggyBank,
+  Sun,
+  Thermometer,
+} from "lucide-react";
+import { EnergyChart } from "@/components/Dashboard/EnergyChart";
+import { SystemSpecs } from "@/components/Dashboard/SystemSpecs";
+import { BatteryPerformance } from "@/components/Dashboard/BatteryPerformance";
+import { FinancialAnalysis } from "@/components/Dashboard/FinancialAnalysis";
+import { EnvironmentalImpact } from "@/components/Dashboard/EnvironmentalImpact";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -31,7 +28,7 @@ const Index = () => {
         <h1 className="text-4xl font-bold mb-8 text-primary">Energy Dashboard</h1>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-6 gap-4 bg-muted p-1">
+          <TabsList className="grid w-full grid-cols-6 gap-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="specifications">Specifications</TabsTrigger>
             <TabsTrigger value="energy">Energy</TabsTrigger>
@@ -46,95 +43,59 @@ const Index = () => {
                 title="Total Solar Production"
                 value="8,746 kWh"
                 icon={<Sun className="h-4 w-4" />}
+                description="89.3% Self-Consumed"
               />
               <StatCard
                 title="Battery Health"
                 value="95%"
-                icon={<Battery className="h-4 w-4" />}
+                icon={<BatteryCharging className="h-4 w-4" />}
+                description="356 Total Cycles"
               />
               <StatCard
                 title="Heat Pump Efficiency"
                 value="4.8 SCOP"
                 icon={<Thermometer className="h-4 w-4" />}
+                description="17,116.8 kWh Produced"
               />
             </div>
-
-            <div className="mt-8">
-              <h2 className="text-xl font-semibold mb-4">Energy Production vs Consumption</h2>
-              <div className="h-[400px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RechartsLineChart data={energyData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line
-                      type="monotone"
-                      dataKey="production"
-                      stroke="#0EA5E9"
-                      name="Production"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="consumption"
-                      stroke="#8B5CF6"
-                      name="Consumption"
-                    />
-                  </RechartsLineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
+            <EnergyChart />
           </TabContent>
 
           <TabContent value="specifications" activeTab={activeTab}>
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold">Solar System</h2>
-                <div className="space-y-4">
-                  <StatCard
-                    title="Installation Date"
-                    value="November 13, 2020"
-                    icon={<Sun className="h-4 w-4" />}
-                  />
-                  <StatCard
-                    title="Capacity"
-                    value="10.43 kWp"
-                    description="String 1: 18 panels × 360W = 6.48 kWp
-                               String 2: 10 panels × 395W = 3.95 kWp"
-                  />
-                  <StatCard title="Inverter" value="Goodwe ET10K" />
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold">Battery System</h2>
-                <div className="space-y-4">
-                  <StatCard
-                    title="Installation Date"
-                    value="February 2022"
-                    icon={<Battery className="h-4 w-4" />}
-                  />
-                  <StatCard title="Capacity" value="16.56 kWh" description="BYD HVM 16.6" />
-                </div>
-              </div>
-            </div>
+            <SystemSpecs />
           </TabContent>
 
-          {/* Additional tabs will be implemented in subsequent iterations */}
           <TabContent value="energy" activeTab={activeTab}>
-            <div className="text-center text-gray-500">Energy tab content coming soon...</div>
+            <div className="grid gap-4 md:grid-cols-3 mb-6">
+              <StatCard
+                title="Self-Consumed Solar"
+                value="7,813 kWh"
+                icon={<Sun className="h-4 w-4" />}
+              />
+              <StatCard
+                title="Grid Export"
+                value="933 kWh"
+                icon={<LineChart className="h-4 w-4" />}
+              />
+              <StatCard
+                title="Heat Pump Usage"
+                value="3,566 kWh"
+                icon={<Thermometer className="h-4 w-4" />}
+              />
+            </div>
+            <EnergyChart showDetailed={true} />
           </TabContent>
 
           <TabContent value="battery" activeTab={activeTab}>
-            <div className="text-center text-gray-500">Battery tab content coming soon...</div>
+            <BatteryPerformance />
           </TabContent>
 
           <TabContent value="financial" activeTab={activeTab}>
-            <div className="text-center text-gray-500">Financial tab content coming soon...</div>
+            <FinancialAnalysis />
           </TabContent>
 
           <TabContent value="environmental" activeTab={activeTab}>
-            <div className="text-center text-gray-500">Environmental tab content coming soon...</div>
+            <EnvironmentalImpact />
           </TabContent>
         </Tabs>
       </div>
