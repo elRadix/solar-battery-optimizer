@@ -19,12 +19,18 @@ import {
   Timer,
   Lightbulb,
   CloudSun,
+  CircleDollarSign,
+  Gauge,
+  TreePine,
 } from "lucide-react";
 import { EnergyChart } from "@/components/Dashboard/EnergyChart";
 import { SystemSpecs } from "@/components/Dashboard/SystemSpecs";
 import { BatteryPerformance } from "@/components/Dashboard/BatteryPerformance";
 import { FinancialAnalysis } from "@/components/Dashboard/FinancialAnalysis";
 import { EnvironmentalImpact } from "@/components/Dashboard/EnvironmentalImpact";
+import { OverviewSummary } from "@/components/Dashboard/OverviewSummary";
+import { SystemEfficiencyChart } from "@/components/Dashboard/SystemEfficiencyChart";
+import { SavingsDistribution } from "@/components/Dashboard/SavingsDistribution";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -45,27 +51,42 @@ const Index = () => {
           </TabsList>
 
           <TabContent value="overview" activeTab={activeTab}>
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-4">
               <StatCard
-                title="Total Solar Production"
+                title="Total System Output"
                 value="8,746 kWh"
-                icon={<Sun className="h-4 w-4" />}
-                description="89.3% Self-Consumed, exceeding industry average by 15%"
+                icon={<Sun className="h-6 w-6" />}
+                description="Annual solar production with 89.3% self-consumption rate"
               />
               <StatCard
-                title="Battery Health"
-                value="95%"
-                icon={<BatteryCharging className="h-4 w-4" />}
-                description="356 Cycles completed with optimal performance"
+                title="System Efficiency"
+                value="93.9%"
+                icon={<Gauge className="h-6 w-6" />}
+                description="Combined efficiency of solar, battery, and heat pump systems"
               />
               <StatCard
-                title="Heat Pump Efficiency"
-                value="4.8 SCOP"
-                icon={<Thermometer className="h-4 w-4" />}
-                description="480% more efficient than traditional heating"
+                title="Annual Savings"
+                value="€3,654"
+                icon={<CircleDollarSign className="h-6 w-6" />}
+                description="Total financial benefits including grid export and reduced consumption"
+              />
+              <StatCard
+                title="Carbon Offset"
+                value="4.37 tons"
+                icon={<TreePine className="h-6 w-6" />}
+                description="Annual CO₂ emissions reduction, equivalent to 201 trees"
               />
             </div>
-            <EnergyChart />
+
+            <div className="grid gap-6 mt-6 md:grid-cols-2">
+              <EnergyChart />
+              <SystemEfficiencyChart />
+            </div>
+
+            <div className="grid gap-6 mt-6 md:grid-cols-2">
+              <SavingsDistribution />
+              <OverviewSummary />
+            </div>
           </TabContent>
 
           <TabContent value="specifications" activeTab={activeTab}>
