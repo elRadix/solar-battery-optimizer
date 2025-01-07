@@ -31,6 +31,7 @@ import { EnvironmentalImpact } from "@/components/Dashboard/EnvironmentalImpact"
 import { OverviewSummary } from "@/components/Dashboard/OverviewSummary";
 import { SystemEfficiencyChart } from "@/components/Dashboard/SystemEfficiencyChart";
 import { SavingsDistribution } from "@/components/Dashboard/SavingsDistribution";
+import { HeatPumpAnalysis } from "@/components/Dashboard/HeatPumpAnalysis";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -135,6 +136,7 @@ const Index = () => {
               />
             </div>
             <EnergyChart showDetailed={true} />
+            <HeatPumpAnalysis />
           </TabContent>
 
           <TabContent value="battery" activeTab={activeTab}>
