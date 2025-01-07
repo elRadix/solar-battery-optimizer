@@ -18,9 +18,13 @@ import {
   ResponsiveContainer,
   LineChart,
   Line,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
-import { Thermometer, Droplet, Snowflake } from "lucide-react";
+import { Thermometer, Droplet, Snowflake, Info } from "lucide-react";
 import { StatCard } from "./StatCard";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const heatPumpData = [
   { month: "January", total: 683.661, heating: 610.0, hotWater: 73.661, cooling: 0 },
@@ -41,47 +45,99 @@ const totalHeating = heatPumpData.reduce((acc, curr) => acc + curr.heating, 0);
 const totalHotWater = heatPumpData.reduce((acc, curr) => acc + curr.hotWater, 0);
 const totalCooling = heatPumpData.reduce((acc, curr) => acc + curr.cooling, 0);
 
+const COLORS = ['#F97316', '#0EA5E9', '#8B5CF6'];
+
+const distributionData = [
+  { name: 'Heating', value: totalHeating },
+  { name: 'Hot Water', value: totalHotWater },
+  { name: 'Cooling', value: totalCooling }
+];
+
 export const HeatPumpAnalysis = () => {
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
-        <StatCard
-          title="Total Heating"
-          value={`${totalHeating.toFixed(1)} kWh`}
-          icon={<Thermometer className="h-4 w-4" />}
-          description="Annual energy used for space heating"
-        />
-        <StatCard
-          title="Hot Water Production"
-          value={`${totalHotWater.toFixed(1)} kWh`}
-          icon={<Droplet className="h-4 w-4" />}
-          description="Energy consumed for domestic hot water"
-        />
-        <StatCard
-          title="Cooling Usage"
-          value={`${totalCooling.toFixed(1)} kWh`}
-          icon={<Snowflake className="h-4 w-4" />}
-          description="Summer cooling energy consumption"
-        />
-      </div>
-
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Monthly Distribution</h3>
-        <div className="h-[400px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={heatPumpData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="heating" name="Heating" fill="#F97316" />
-              <Bar dataKey="hotWater" name="Hot Water" fill="#0EA5E9" />
-              <Bar dataKey="cooling" name="Cooling" fill="#8B5CF6" />
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="flex items-center gap-2 mb-4">
+          <h2 className="text-xl font-semibold">Heat Pump System Overview</h2>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-sm">
+                <p>Your heat pump system provides heating, cooling, and hot water production. The system's efficiency varies throughout the year based on outdoor temperatures and demand patterns.</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          <StatCard
+            title="Space Heating"
+            value={`${totalHeating.toFixed(1)} kWh`}
+            icon={<Thermometer className="h-4 w-4" />}
+            description="Primary heating energy consumption"
+          />
+          <StatCard
+            title="Hot Water Production"
+            value={`${totalHotWater.toFixed(1)} kWh`}
+            icon={<Droplet className="h-4 w-4" />}
+            description="Domestic hot water energy usage"
+          />
+          <StatCard
+            title="Space Cooling"
+            value={`${totalCooling.toFixed(1)} kWh`}
+            icon={<Snowflake className="h-4 w-4" />}
+            description="Summer cooling energy consumption"
+          />
         </div>
       </Card>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Energy Distribution</h3>
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={distributionData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  paddingAngle={5}
+                  dataKey="value"
+                  label={({ name, value }) => `${name}: ${value.toFixed(1)} kWh`}
+                >
+                  {distributionData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Monthly Distribution</h3>
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={heatPumpData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="heating" name="Heating" fill="#F97316" stackId="a" />
+                <Bar dataKey="hotWater" name="Hot Water" fill="#0EA5E9" stackId="a" />
+                <Bar dataKey="cooling" name="Cooling" fill="#8B5CF6" stackId="a" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      </div>
 
       <Card className="p-6">
         <h3 className="text-lg font-semibold mb-4">Total Consumption Trend</h3>
@@ -105,39 +161,53 @@ export const HeatPumpAnalysis = () => {
         </div>
       </Card>
 
-      <Card className="p-6 overflow-x-auto">
-        <h3 className="text-lg font-semibold mb-4">Detailed Monthly Usage</h3>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Month</TableHead>
-              <TableHead className="text-right">Total (kWh)</TableHead>
-              <TableHead className="text-right">Heating (kWh)</TableHead>
-              <TableHead className="text-right">Hot Water (kWh)</TableHead>
-              <TableHead className="text-right">Cooling (kWh)</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {heatPumpData.map((row) => (
-              <TableRow key={row.month}>
-                <TableCell>{row.month}</TableCell>
-                <TableCell className="text-right">{row.total.toFixed(3)}</TableCell>
-                <TableCell className="text-right">{row.heating.toFixed(1)}</TableCell>
-                <TableCell className="text-right">{row.hotWater.toFixed(3)}</TableCell>
-                <TableCell className="text-right">{row.cooling.toFixed(1)}</TableCell>
+      <Card className="p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-semibold">Detailed Monthly Usage</h3>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-sm">
+                <p>Monthly breakdown of energy consumption across heating, cooling, and hot water production. Values are in kilowatt-hours (kWh).</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Month</TableHead>
+                <TableHead className="text-right">Total (kWh)</TableHead>
+                <TableHead className="text-right">Heating (kWh)</TableHead>
+                <TableHead className="text-right">Hot Water (kWh)</TableHead>
+                <TableHead className="text-right">Cooling (kWh)</TableHead>
               </TableRow>
-            ))}
-            <TableRow className="font-semibold">
-              <TableCell>Total</TableCell>
-              <TableCell className="text-right">
-                {heatPumpData.reduce((acc, curr) => acc + curr.total, 0).toFixed(3)}
-              </TableCell>
-              <TableCell className="text-right">{totalHeating.toFixed(1)}</TableCell>
-              <TableCell className="text-right">{totalHotWater.toFixed(3)}</TableCell>
-              <TableCell className="text-right">{totalCooling.toFixed(1)}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {heatPumpData.map((row) => (
+                <TableRow key={row.month}>
+                  <TableCell className="font-medium">{row.month}</TableCell>
+                  <TableCell className="text-right">{row.total.toFixed(3)}</TableCell>
+                  <TableCell className="text-right">{row.heating.toFixed(1)}</TableCell>
+                  <TableCell className="text-right">{row.hotWater.toFixed(3)}</TableCell>
+                  <TableCell className="text-right">{row.cooling.toFixed(1)}</TableCell>
+                </TableRow>
+              ))}
+              <TableRow className="font-semibold">
+                <TableCell>Total</TableCell>
+                <TableCell className="text-right">
+                  {heatPumpData.reduce((acc, curr) => acc + curr.total, 0).toFixed(3)}
+                </TableCell>
+                <TableCell className="text-right">{totalHeating.toFixed(1)}</TableCell>
+                <TableCell className="text-right">{totalHotWater.toFixed(3)}</TableCell>
+                <TableCell className="text-right">{totalCooling.toFixed(1)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </Card>
     </div>
   );
