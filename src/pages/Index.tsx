@@ -1,27 +1,12 @@
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { StatCard } from "@/components/Dashboard/StatCard";
 import { TabContent } from "@/components/Dashboard/TabContent";
+import { StatCard } from "@/components/Dashboard/StatCard";
 import {
-  Battery,
-  BatteryCharging,
-  DollarSign,
-  Home,
-  Leaf,
-  LineChart,
-  PiggyBank,
-  Sun,
-  Thermometer,
-  Zap,
-  BarChart3,
-  TrendingUp,
-  Percent,
-  Timer,
-  Lightbulb,
-  CloudSun,
-  CircleDollarSign,
-  Gauge,
-  TreePine,
+  Battery, BatteryCharging, DollarSign, Home, Leaf,
+  LineChart, PiggyBank, Sun, Thermometer, Zap,
+  BarChart3, TrendingUp, Percent, Timer, Lightbulb,
+  CloudSun, CircleDollarSign, Gauge, TreePine
 } from "lucide-react";
 import { EnergyChart } from "@/components/Dashboard/EnergyChart";
 import { SystemSpecs } from "@/components/Dashboard/SystemSpecs";
@@ -32,6 +17,7 @@ import { OverviewSummary } from "@/components/Dashboard/OverviewSummary";
 import { SystemEfficiencyChart } from "@/components/Dashboard/SystemEfficiencyChart";
 import { SavingsDistribution } from "@/components/Dashboard/SavingsDistribution";
 import { HeatPumpAnalysis } from "@/components/Dashboard/HeatPumpAnalysis";
+import { MyHouseAnalysis } from "@/components/MyHouse/MyHouseAnalysis";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -42,13 +28,14 @@ const Index = () => {
         <h1 className="text-4xl font-bold mb-8 text-primary">Energy Dashboard</h1>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 gap-4">
+          <TabsList className="grid w-full grid-cols-7 gap-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="specifications">Specifications</TabsTrigger>
             <TabsTrigger value="energy">Energy</TabsTrigger>
             <TabsTrigger value="battery">Battery</TabsTrigger>
             <TabsTrigger value="financial">Financial</TabsTrigger>
             <TabsTrigger value="environmental">Environmental</TabsTrigger>
+            <TabsTrigger value="house">My House</TabsTrigger>
           </TabsList>
 
           <TabContent value="overview" activeTab={activeTab}>
@@ -209,6 +196,10 @@ const Index = () => {
               />
             </div>
             <EnvironmentalImpact />
+          </TabContent>
+
+          <TabContent value="house" activeTab={activeTab}>
+            <MyHouseAnalysis />
           </TabContent>
         </Tabs>
       </div>
