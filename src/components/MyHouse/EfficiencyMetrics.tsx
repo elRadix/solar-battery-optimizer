@@ -8,12 +8,29 @@ const efficiencyCategories = [
   { category: "Poorly Insulated Homes", range: "> 0.0096" }
 ];
 
+const yearlyMetrics = [
+  {
+    year: "2023",
+    degreeDays: "1,707.6",
+    consumption: "2,476.55",
+    efficiency: "11.8",
+    label: "A+"
+  },
+  {
+    year: "2024",
+    degreeDays: "2,259.4",
+    consumption: "3,452.897",
+    efficiency: "16.4",
+    label: "A+"
+  }
+];
+
 export const EfficiencyMetrics = () => {
   return (
     <Card className="p-6">
       <div className="flex items-center gap-2 mb-4">
         <h2 className="text-xl font-semibold">Efficiency Analysis</h2>
-        <InfoTooltip content="Detailed breakdown of energy efficiency metrics and comparisons" />
+        <InfoTooltip content="Detailed breakdown of energy efficiency metrics and comparisons with industry standards" />
       </div>
       <div className="space-y-6">
         <div className="prose dark:prose-invert">
@@ -22,23 +39,58 @@ export const EfficiencyMetrics = () => {
             significantly lower than the Flemish average of 356 kWh/m² per year. This places
             your property in the top 17% of most energy-efficient homes, earning an A+ rating.
           </p>
+          <p>
+            The increase in consumption from 2023 (11.8 kWh/m²) to 2024 (16.4 kWh/m²) is primarily
+            due to higher heating demands, reflected in the 32% increase in degree days (2,259.4 vs 1,707.6).
+            Despite this increase, your home maintains excellent efficiency metrics.
+          </p>
         </div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Home Category</TableHead>
-              <TableHead>Consumption Range (kWh/m²/degree day)</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {efficiencyCategories.map((category) => (
-              <TableRow key={category.category}>
-                <TableCell className="font-medium">{category.category}</TableCell>
-                <TableCell>{category.range}</TableCell>
+        
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Yearly Performance Metrics</h3>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Year</TableHead>
+                <TableHead>Degree Days (16.5°C)</TableHead>
+                <TableHead>Total Consumption (kWh)</TableHead>
+                <TableHead>Efficiency (kWh/m²)</TableHead>
+                <TableHead>EPC Label</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {yearlyMetrics.map((metric) => (
+                <TableRow key={metric.year}>
+                  <TableCell className="font-medium">{metric.year}</TableCell>
+                  <TableCell>{metric.degreeDays}</TableCell>
+                  <TableCell>{metric.consumption}</TableCell>
+                  <TableCell>{metric.efficiency}</TableCell>
+                  <TableCell>{metric.label}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Industry Comparison</h3>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Home Category</TableHead>
+                <TableHead>Consumption Range (kWh/m²/degree day)</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {efficiencyCategories.map((category) => (
+                <TableRow key={category.category}>
+                  <TableCell className="font-medium">{category.category}</TableCell>
+                  <TableCell>{category.range}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </Card>
   );

@@ -30,7 +30,14 @@ export const YearlyComparison = () => {
     <Card className="p-6">
       <div className="flex items-center gap-2 mb-4">
         <h2 className="text-xl font-semibold">Yearly Energy Comparison</h2>
-        <InfoTooltip content="Comparison of key energy metrics between 2023 and 2024" />
+        <InfoTooltip content="Detailed comparison of energy metrics between 2023 and 2024, showing consumption patterns and efficiency changes" />
+      </div>
+      <div className="prose dark:prose-invert mb-4">
+        <p>
+          Analysis shows a significant increase in total consumption from 2,476.55 kWh in 2023 to 3,452.897 kWh in 2024,
+          primarily due to increased heating demands reflected in the higher degree days (2,259.4 vs 1,707.6).
+          Despite higher consumption, efficiency metrics remain excellent with an A+ rating maintained.
+        </p>
       </div>
       <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
