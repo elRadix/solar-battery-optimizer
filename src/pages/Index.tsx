@@ -21,7 +21,7 @@ const Index = () => {
           activeSection={activeSection} 
           onSectionChange={setActiveSection} 
         />
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-6 md:pl-[16rem]">
           <DashboardHeader />
           
           <TabContent value="overview" activeTab={activeSection}>
