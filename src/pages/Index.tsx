@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { TabContent } from "@/components/Dashboard/TabContent";
-import { DashboardNav } from "@/components/Navigation/DashboardNav";
 import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
 import { DashboardOverview } from "@/components/Dashboard/DashboardOverview";
 import { SystemSpecs } from "@/components/Dashboard/SystemSpecs";
@@ -9,45 +8,52 @@ import { BatteryAnalysis } from "@/components/Dashboard/BatteryAnalysis";
 import { FinancialAnalysis } from "@/components/Dashboard/FinancialAnalysis";
 import { EnvironmentalImpact } from "@/components/Dashboard/EnvironmentalImpact";
 import { MyHouseAnalysis } from "@/components/MyHouse/MyHouseAnalysis";
+import { DashboardSidebar } from "@/components/Navigation/DashboardSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeSection, setActiveSection] = useState("overview");
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="container mx-auto">
-        <DashboardHeader />
-        <DashboardNav activeTab={activeTab} onTabChange={setActiveTab} />
+    <SidebarProvider>
+      <div className="min-h-screen bg-background flex w-full">
+        <DashboardSidebar 
+          activeSection={activeSection} 
+          onSectionChange={setActiveSection} 
+        />
+        <div className="flex-1 p-6">
+          <DashboardHeader />
+          
+          <TabContent value="overview" activeTab={activeSection}>
+            <DashboardOverview />
+          </TabContent>
 
-        <TabContent value="overview" activeTab={activeTab}>
-          <DashboardOverview />
-        </TabContent>
+          <TabContent value="specifications" activeTab={activeSection}>
+            <SystemSpecs />
+          </TabContent>
 
-        <TabContent value="specifications" activeTab={activeTab}>
-          <SystemSpecs />
-        </TabContent>
+          <TabContent value="energy" activeTab={activeSection}>
+            <EnergyAnalysis />
+          </TabContent>
 
-        <TabContent value="energy" activeTab={activeTab}>
-          <EnergyAnalysis />
-        </TabContent>
+          <TabContent value="battery" activeTab={activeSection}>
+            <BatteryAnalysis />
+          </TabContent>
 
-        <TabContent value="battery" activeTab={activeTab}>
-          <BatteryAnalysis />
-        </TabContent>
+          <TabContent value="financial" activeTab={activeSection}>
+            <FinancialAnalysis />
+          </TabContent>
 
-        <TabContent value="financial" activeTab={activeTab}>
-          <FinancialAnalysis />
-        </TabContent>
+          <TabContent value="environmental" activeTab={activeSection}>
+            <EnvironmentalImpact />
+          </TabContent>
 
-        <TabContent value="environmental" activeTab={activeTab}>
-          <EnvironmentalImpact />
-        </TabContent>
-
-        <TabContent value="house" activeTab={activeTab}>
-          <MyHouseAnalysis />
-        </TabContent>
+          <TabContent value="house" activeTab={activeSection}>
+            <MyHouseAnalysis />
+          </TabContent>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
