@@ -20,21 +20,22 @@ const efficiencyData = [
 ];
 
 export const SystemEfficiencyChart = () => {
-  const [key, setKey] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setKey(prev => prev + 1);
-    }, 100);
-
-    return () => clearTimeout(timer);
+    setMounted(true);
+    return () => setMounted(false);
   }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Card className="p-6">
       <h2 className="text-xl font-semibold mb-4">System Efficiency Analysis</h2>
       <div className="h-[400px]">
-        <ResponsiveContainer width="100%" height="100%" key={key}>
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={efficiencyData}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}

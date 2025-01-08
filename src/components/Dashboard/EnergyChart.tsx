@@ -11,7 +11,7 @@ import {
   Area,
   AreaChart,
 } from "recharts";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 
@@ -35,15 +35,16 @@ interface EnergyChartProps {
 }
 
 export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
-  const [key, setKey] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setKey(prev => prev + 1);
-    }, 100);
-
-    return () => clearTimeout(timer);
+    setMounted(true);
+    return () => setMounted(false);
   }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Card className="mt-6 p-6">
@@ -61,7 +62,7 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
         </TooltipProvider>
       </div>
       <div className="h-[400px]">
-        <ResponsiveContainer width="100%" height="100%" key={key}>
+        <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={energyData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
