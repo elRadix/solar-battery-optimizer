@@ -15,7 +15,12 @@ import {
 } from "recharts";
 import { useEffect, useState, useCallback } from "react";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info, TrendingUp, TrendingDown } from "lucide-react";
+import { Info, TrendingUp, TrendingDown, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const energyData = [
   { month: "Jan", production: 450, consumption: 380, heatPump: 320 },
@@ -40,6 +45,7 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
   const [mounted, setMounted] = useState(false);
   const [dateRange, setDateRange] = useState({ start: 0, end: energyData.length - 1 });
   const [trend, setTrend] = useState<'up' | 'down' | null>(null);
+  const [date, setDate] = useState<Date>();
 
   useEffect(() => {
     setMounted(true);
@@ -59,11 +65,28 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
     }
   }, []);
 
+  const resetZoom = useCallback(() => {
+    setDateRange({ start: 0, end: energyData.length - 1 });
+  }, []);
+
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    if (selectedDate) {
+      const monthStr = format(selectedDate, 'MMM');
+      const monthIndex = energyData.findIndex(d => d.month === monthStr);
+      if (monthIndex !== -1) {
+        setDateRange({ start: monthIndex, end: monthIndex });
+      }
+    }
+  };
+
   if (!mounted) {
     return null;
   }
 
   const visibleData = energyData.slice(dateRange.start, dateRange.end + 1);
+  const averageProduction = Math.round(visibleData.reduce((acc, curr) => acc + curr.production, 0) / visibleData.length);
+  const averageConsumption = Math.round(visibleData.reduce((acc, curr) => acc + curr.consumption, 0) / visibleData.length);
 
   return (
     <Card className="mt-6 p-6">
@@ -82,6 +105,35 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
           </TooltipProvider>
         </div>
         <div className="flex items-center gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                {date ? format(date, "PPP") : "Pick a date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={handleDateSelect}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={resetZoom}
+            className="shrink-0"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
           {trend && (
             <TooltipProvider>
               <UITooltip>
@@ -113,12 +165,20 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="bg-background border rounded p-2">
-                      <p className="font-semibold">{label}</p>
+                    <div className="bg-background border rounded p-3 shadow-lg">
+                      <p className="font-semibold mb-2">{label}</p>
                       {payload.map((entry: any) => (
-                        <p key={entry.name} style={{ color: entry.color }}>
-                          {entry.name}: {entry.value} kWh
-                        </p>
+                        <div key={entry.name} className="space-y-1">
+                          <p style={{ color: entry.color }}>
+                            {entry.name}: {entry.value} kWh
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {entry.name === "Production" 
+                              ? `${Math.round((entry.value / averageProduction) * 100 - 100)}% vs average`
+                              : `${Math.round((entry.value / averageConsumption) * 100 - 100)}% vs average`
+                            }
+                          </p>
+                        </div>
                       ))}
                     </div>
                   );
