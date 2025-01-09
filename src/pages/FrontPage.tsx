@@ -10,7 +10,6 @@ import {
   House,
   ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const FrontPage = () => {
   return (
@@ -73,61 +72,71 @@ const FrontPage = () => {
             icon: Home,
             route: "/overview",
             description: "Complete snapshot of system performance, efficiency metrics, and key indicators",
+            color: "from-blue-500 to-blue-600"
           },
           {
             title: "System Specifications",
             icon: Settings,
             route: "/specifications",
             description: "Technical details about solar panels, battery storage, and heat pump systems",
+            color: "from-purple-500 to-purple-600"
           },
           {
             title: "Energy Analysis",
             icon: LineChart,
             route: "/energy",
             description: "Comprehensive analysis of energy production and consumption patterns",
+            color: "from-green-500 to-green-600"
           },
           {
             title: "Battery Performance",
             icon: Battery,
             route: "/battery",
             description: "Battery system efficiency, cycles, and optimization metrics",
+            color: "from-yellow-500 to-yellow-600"
           },
           {
             title: "Financial Analysis",
             icon: CircleDollarSign,
             route: "/financial",
             description: "Investment overview, savings, and ROI calculations",
+            color: "from-emerald-500 to-emerald-600"
           },
           {
             title: "Environmental Impact",
             icon: Leaf,
             route: "/environmental",
             description: "CO₂ emissions savings and sustainability metrics",
+            color: "from-teal-500 to-teal-600"
           },
           {
             title: "My House",
             icon: House,
             route: "/house",
             description: "House-specific energy performance and efficiency metrics",
+            color: "from-indigo-500 to-indigo-600"
           },
         ].map((item) => (
-          <Card key={item.route} className="relative overflow-hidden hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <item.icon className="h-6 w-6 text-primary" />
-                {item.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground">{item.description}</p>
-              <Link to={item.route}>
-                <Button className="w-full">
-                  View Details
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <Link to={item.route} key={item.route}>
+            <Card className="group relative overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+              <CardHeader className="relative z-10">
+                <CardTitle className="flex items-center gap-2 text-xl group-hover:text-white transition-colors">
+                  <item.icon className="h-6 w-6 transition-transform group-hover:scale-110" />
+                  {item.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <p className="text-muted-foreground group-hover:text-white/90 transition-colors">
+                  {item.description}
+                </p>
+                <div className="mt-4 flex items-center text-primary group-hover:text-white transition-colors">
+                  <span className="mr-2">Explore</span>
+                  <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
