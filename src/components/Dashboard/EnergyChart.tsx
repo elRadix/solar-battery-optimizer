@@ -21,6 +21,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { toast } from "@/hooks/use-toast";
 
 const energyData = [
   { month: "Jan", production: 450, consumption: 380, heatPump: 320 },
@@ -67,6 +68,10 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
 
   const resetZoom = useCallback(() => {
     setDateRange({ start: 0, end: energyData.length - 1 });
+    toast({
+      title: "Chart Reset",
+      description: "Chart zoom has been reset to show all data points.",
+    });
   }, []);
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
@@ -76,6 +81,10 @@ export const EnergyChart = ({ showDetailed = false }: EnergyChartProps) => {
       const monthIndex = energyData.findIndex(d => d.month === monthStr);
       if (monthIndex !== -1) {
         setDateRange({ start: monthIndex, end: monthIndex });
+        toast({
+          title: "Date Selected",
+          description: `Showing data for ${format(selectedDate, 'MMMM yyyy')}`,
+        });
       }
     }
   };
