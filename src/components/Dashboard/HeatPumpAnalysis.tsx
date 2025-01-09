@@ -3,6 +3,7 @@ import { EnergyDistributionChart } from "./HeatPump/EnergyDistributionChart";
 import { MonthlyUsageChart } from "./HeatPump/MonthlyUsageChart";
 import { ConsumptionTrendChart } from "./HeatPump/ConsumptionTrendChart";
 import { UsageTable } from "./HeatPump/UsageTable";
+import { SeasonalComparison } from "./HeatPump/SeasonalComparison";
 
 export const HeatPumpAnalysis = () => {
   return (
@@ -12,6 +13,7 @@ export const HeatPumpAnalysis = () => {
         <EnergyDistributionChart />
         <MonthlyUsageChart />
       </div>
+      <SeasonalComparison />
       <ConsumptionTrendChart />
       <UsageTable />
     </div>
