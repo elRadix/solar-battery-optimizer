@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { StatCard } from "../Dashboard/StatCard";
 import { Home, Thermometer, Gauge, TreePine, LineChart, Zap } from "lucide-react";
-import { InfoTooltip } from "../Dashboard/InfoTooltip";
 
 export const HouseOverview = () => {
   return (
@@ -10,10 +9,22 @@ export const HouseOverview = () => {
         <div className="prose dark:prose-invert max-w-none mb-6">
           <h2 className="text-xl font-semibold mb-2">House Energy Performance Overview</h2>
           <p className="text-muted-foreground">
-            This section provides a comprehensive view of your home's energy performance metrics for 2024,
-            including the Energy Performance Certificate (EPC) rating, living space details, and key efficiency indicators.
-            The data shows your home's exceptional energy efficiency, placing it among the top 17% of properties
-            with an A+ rating, significantly outperforming the Flemish average of 356 kWh/m².
+            This comprehensive overview presents your home's key energy performance metrics for 2024,
+            including the Energy Performance Certificate (EPC) rating, living space characteristics,
+            and essential efficiency indicators that define your property's energy profile.
+          </p>
+          <p className="text-muted-foreground">
+            Your home's exceptional A+ rating and EPC value of 16.4 kWh/m² demonstrate outstanding
+            energy efficiency, significantly outperforming the Flemish average of 356 kWh/m². This
+            places your property in the top 17% of energy-efficient homes, showcasing the success
+            of your energy optimization strategies.
+          </p>
+          <p className="text-muted-foreground">
+            The metrics below provide insights into various aspects of your home's energy performance,
+            from basic characteristics like living area to sophisticated measurements such as
+            degree days and efficiency trends. These indicators help you understand how your home
+            performs across different seasons and conditions, enabling informed decision-making
+            for future energy improvements.
           </p>
         </div>
         <div className="grid gap-4 md:grid-cols-3">

@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { InfoTooltip } from "../Dashboard/InfoTooltip";
 
 const efficiencyCategories = [
   { category: "Well Insulated Homes", range: "0.0024 - 0.0048" },
@@ -31,12 +30,23 @@ export const EfficiencyMetrics = () => {
       <div className="prose dark:prose-invert max-w-none mb-6">
         <h2 className="text-xl font-semibold mb-2">Detailed Efficiency Analysis</h2>
         <p className="text-muted-foreground">
-          This section provides an in-depth analysis of your home's energy efficiency metrics,
-          comparing performance across years and against industry standards. The analysis includes
-          degree days (indicating heating/cooling needs), consumption patterns, and efficiency ratings.
+          This comprehensive analysis section provides an in-depth examination of your home's
+          energy efficiency metrics, comparing performance across years and against industry
+          standards. The analysis encompasses crucial factors such as degree days (indicating
+          heating and cooling needs), consumption patterns, and detailed efficiency ratings.
+        </p>
+        <p className="text-muted-foreground">
           Your home maintains an exceptional A+ rating with an EPC value of 16.4 kWh/m² in 2024,
-          despite increased heating demands, demonstrating the effectiveness of your energy systems
-          and insulation.
+          despite increased heating demands. This performance demonstrates the robustness of your
+          energy systems and insulation, as your home continues to operate efficiently even under
+          more challenging conditions.
+        </p>
+        <p className="text-muted-foreground">
+          The detailed metrics presented below allow you to track changes in efficiency over time,
+          understand the impact of weather variations on energy consumption, and compare your
+          home's performance against industry benchmarks. This information is invaluable for
+          identifying trends, planning improvements, and maintaining your home's high energy
+          performance standards.
         </p>
       </div>
       
