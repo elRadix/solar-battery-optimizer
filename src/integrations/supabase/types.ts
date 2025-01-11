@@ -9,7 +9,222 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      battery_data: {
+        Row: {
+          capacity: number
+          charge_rate: number
+          created_at: string | null
+          cycles: number
+          efficiency: number
+          id: string
+          month: string
+          temperature: number
+          year: number
+        }
+        Insert: {
+          capacity: number
+          charge_rate: number
+          created_at?: string | null
+          cycles: number
+          efficiency: number
+          id?: string
+          month: string
+          temperature: number
+          year: number
+        }
+        Update: {
+          capacity?: number
+          charge_rate?: number
+          created_at?: string | null
+          cycles?: number
+          efficiency?: number
+          id?: string
+          month?: string
+          temperature?: number
+          year?: number
+        }
+        Relationships: []
+      }
+      energy_data: {
+        Row: {
+          consumption: number
+          created_at: string | null
+          heat_pump: number
+          id: string
+          month: string
+          production: number
+          year: number
+        }
+        Insert: {
+          consumption: number
+          created_at?: string | null
+          heat_pump: number
+          id?: string
+          month: string
+          production: number
+          year: number
+        }
+        Update: {
+          consumption?: number
+          created_at?: string | null
+          heat_pump?: number
+          id?: string
+          month?: string
+          production?: number
+          year?: number
+        }
+        Relationships: []
+      }
+      house_data: {
+        Row: {
+          actual_heating_consumption: number | null
+          avg_degree_days_month: number | null
+          consumption_per_degree_day: number | null
+          conversion_factor: number | null
+          cooling: number
+          cooling_degree_days: number | null
+          created_at: string | null
+          degree_days: number
+          efficiency: number
+          epc_label: string | null
+          estimated_heating_load: number | null
+          grid_injection: number | null
+          heat_pump_usage: number
+          heating: number
+          heating_difference: number | null
+          hot_water: number
+          id: string
+          living_area: number | null
+          total_consumption: number
+          total_grid_consumption: number | null
+          year: number
+        }
+        Insert: {
+          actual_heating_consumption?: number | null
+          avg_degree_days_month?: number | null
+          consumption_per_degree_day?: number | null
+          conversion_factor?: number | null
+          cooling: number
+          cooling_degree_days?: number | null
+          created_at?: string | null
+          degree_days: number
+          efficiency: number
+          epc_label?: string | null
+          estimated_heating_load?: number | null
+          grid_injection?: number | null
+          heat_pump_usage: number
+          heating: number
+          heating_difference?: number | null
+          hot_water: number
+          id?: string
+          living_area?: number | null
+          total_consumption: number
+          total_grid_consumption?: number | null
+          year: number
+        }
+        Update: {
+          actual_heating_consumption?: number | null
+          avg_degree_days_month?: number | null
+          consumption_per_degree_day?: number | null
+          conversion_factor?: number | null
+          cooling?: number
+          cooling_degree_days?: number | null
+          created_at?: string | null
+          degree_days?: number
+          efficiency?: number
+          epc_label?: string | null
+          estimated_heating_load?: number | null
+          grid_injection?: number | null
+          heat_pump_usage?: number
+          heating?: number
+          heating_difference?: number | null
+          hot_water?: number
+          id?: string
+          living_area?: number | null
+          total_consumption?: number
+          total_grid_consumption?: number | null
+          year?: number
+        }
+        Relationships: []
+      }
+      monthly_consumption: {
+        Row: {
+          cooling_consumption: number | null
+          cooling_degree_days: number | null
+          created_at: string | null
+          degree_days: number | null
+          grid_consumption: number
+          grid_injection: number | null
+          heat_pump_consumption: number
+          heating_consumption: number | null
+          hot_water_consumption: number | null
+          id: string
+          month: string
+          year: number
+        }
+        Insert: {
+          cooling_consumption?: number | null
+          cooling_degree_days?: number | null
+          created_at?: string | null
+          degree_days?: number | null
+          grid_consumption: number
+          grid_injection?: number | null
+          heat_pump_consumption: number
+          heating_consumption?: number | null
+          hot_water_consumption?: number | null
+          id?: string
+          month: string
+          year: number
+        }
+        Update: {
+          cooling_consumption?: number | null
+          cooling_degree_days?: number | null
+          created_at?: string | null
+          degree_days?: number | null
+          grid_consumption?: number
+          grid_injection?: number | null
+          heat_pump_consumption?: number
+          heating_consumption?: number | null
+          hot_water_consumption?: number | null
+          id?: string
+          month?: string
+          year?: number
+        }
+        Relationships: []
+      }
+      system_specs: {
+        Row: {
+          additional_info: Json | null
+          capacity: string | null
+          component_type: string
+          created_at: string | null
+          efficiency: number | null
+          id: string
+          installation_date: string
+          system_cost: number | null
+        }
+        Insert: {
+          additional_info?: Json | null
+          capacity?: string | null
+          component_type: string
+          created_at?: string | null
+          efficiency?: number | null
+          id?: string
+          installation_date: string
+          system_cost?: number | null
+        }
+        Update: {
+          additional_info?: Json | null
+          capacity?: string | null
+          component_type?: string
+          created_at?: string | null
+          efficiency?: number | null
+          id?: string
+          installation_date?: string
+          system_cost?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

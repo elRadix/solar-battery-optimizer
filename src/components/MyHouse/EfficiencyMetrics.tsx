@@ -28,10 +28,18 @@ const yearlyMetrics = [
 export const EfficiencyMetrics = () => {
   return (
     <Card className="p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <h2 className="text-xl font-semibold">Efficiency Analysis</h2>
-        <InfoTooltip content="Detailed breakdown of energy efficiency metrics and comparisons with industry standards" />
+      <div className="prose dark:prose-invert max-w-none mb-6">
+        <h2 className="text-xl font-semibold mb-2">Detailed Efficiency Analysis</h2>
+        <p className="text-muted-foreground">
+          This section provides an in-depth analysis of your home's energy efficiency metrics,
+          comparing performance across years and against industry standards. The analysis includes
+          degree days (indicating heating/cooling needs), consumption patterns, and efficiency ratings.
+          Your home maintains an exceptional A+ rating with an EPC value of 16.4 kWh/m² in 2024,
+          despite increased heating demands, demonstrating the effectiveness of your energy systems
+          and insulation.
+        </p>
       </div>
+      
       <div className="space-y-6">
         <div className="prose dark:prose-invert">
           <p>
