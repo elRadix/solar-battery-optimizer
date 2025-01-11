@@ -19,14 +19,25 @@ export const MyHouseAnalysis = () => {
             Your home demonstrates exceptional energy efficiency with an A+ rating, placing it among
             the top 17% of energy-efficient properties. This achievement reflects the effectiveness
             of your energy systems and insulation measures, resulting in significant environmental
-            and financial benefits.
+            and financial benefits. Through the detailed metrics presented here, you can track
+            improvements in your home's energy performance and identify areas for potential
+            optimization.
           </p>
           <p className="text-muted-foreground">
-            Through detailed metrics, charts, and comparative analyses, you can track your home's
-            energy performance over time, identify trends, and understand how various factors like
-            weather conditions and system upgrades impact your overall energy efficiency. This
-            information helps you make informed decisions about future energy improvements and
-            validate the effectiveness of your current energy management strategies.
+            The information presented in this dashboard empowers you to make informed decisions
+            about your home's energy management. By understanding your property's energy profile,
+            you can evaluate the effectiveness of current energy-saving measures, plan future
+            improvements, and monitor the impact of weather patterns and usage behaviors on your
+            overall energy consumption. This knowledge is crucial for maintaining and enhancing
+            your home's exceptional energy performance standards.
+          </p>
+          <p className="text-muted-foreground">
+            To get the most value from this analysis, focus on trends in energy consumption,
+            efficiency ratings, and performance metrics over time. Compare your home's performance
+            across different seasons and years to understand patterns and identify opportunities
+            for further optimization. The comprehensive data presented here serves as a valuable
+            tool for maintaining your home's high energy efficiency standards and achieving
+            long-term sustainability goals.
           </p>
         </div>
       </Card>
