@@ -29,35 +29,48 @@ export const EfficiencyMetrics = () => {
     <Card className="p-6">
       <div className="prose dark:prose-invert max-w-none mb-6">
         <h2 className="text-xl font-semibold mb-2">Detailed Efficiency Analysis</h2>
-        <p className="text-muted-foreground">
-          This comprehensive analysis section provides an in-depth examination of your home's
-          energy efficiency metrics, comparing performance across years and against industry
-          standards. The analysis encompasses crucial factors such as degree days (indicating
-          heating and cooling needs), consumption patterns, and detailed efficiency ratings,
-          giving you a complete picture of your home's energy performance characteristics.
-        </p>
-        <p className="text-muted-foreground">
-          Your home maintains an exceptional A+ rating with an EPC value of 16.4 kWh/m² in 2024,
-          despite increased heating demands. This performance demonstrates the robustness of your
-          energy systems and insulation, as your home continues to operate efficiently even under
-          more challenging conditions. The detailed metrics presented here allow you to track
-          changes in efficiency over time and understand how various factors influence your
-          home's energy consumption.
-        </p>
-        <p className="text-muted-foreground">
-          Understanding these efficiency metrics is crucial for maintaining and improving your
-          home's energy performance. The data helps you identify trends, evaluate the effectiveness
-          of energy-saving measures, and compare your home's performance against industry benchmarks.
-          This information enables you to make informed decisions about energy management strategies
-          and future improvements to maintain your home's high efficiency standards.
-        </p>
-        <p className="text-muted-foreground">
-          To interpret these metrics effectively, consider how different factors interact and
-          influence overall efficiency. For example, examine how degree days affect consumption
-          patterns, or how your home's efficiency compares to industry standards across different
-          conditions. This understanding helps you optimize energy usage, plan maintenance
-          activities, and maintain your home's exceptional performance throughout the year.
-        </p>
+        
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-semibold text-lg">Purpose</h3>
+            <p className="text-muted-foreground">
+              This comprehensive analysis section provides an in-depth examination of your
+              home's energy efficiency metrics, comparing performance across years and
+              against industry standards. The analysis encompasses crucial factors such as
+              degree days, consumption patterns, and detailed efficiency ratings.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-lg">Data Context</h3>
+            <p className="text-muted-foreground">
+              Your home maintains an exceptional A+ rating with an EPC value of 16.4 kWh/m²
+              in 2024, despite increased heating demands. This performance demonstrates the
+              robustness of your energy systems and insulation, as your home continues to
+              operate efficiently even under more challenging conditions.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-lg">Significance & Applications</h3>
+            <p className="text-muted-foreground">
+              Understanding these efficiency metrics is crucial for maintaining and improving
+              your home's energy performance. The data helps you identify trends, evaluate
+              the effectiveness of energy-saving measures, and compare your home's
+              performance against industry benchmarks.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-lg">Interpretation Guide</h3>
+            <p className="text-muted-foreground">
+              To interpret these metrics effectively, consider how different factors
+              interact and influence overall efficiency. For example, examine how degree
+              days affect consumption patterns, or how your home's efficiency compares to
+              industry standards across different conditions.
+            </p>
+          </div>
+        </div>
       </div>
       
       <div className="space-y-6">
