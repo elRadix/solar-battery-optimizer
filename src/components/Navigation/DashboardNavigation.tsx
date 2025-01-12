@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 const menuItems = [
   {
@@ -94,12 +95,13 @@ export const DashboardNavigation = ({ activeSection, onSectionChange }: Dashboar
               </Button>
             ))}
           </div>
+          <LanguageToggle />
         </div>
       </nav>
 
       {/* Mobile Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t z-50">
-        <div className="grid grid-cols-4 gap-1 p-2">
+        <div className="grid grid-cols-5 gap-1 p-2">
           <Link to="/" className="col-span-1">
             <Button
               variant="ghost"
@@ -120,6 +122,7 @@ export const DashboardNavigation = ({ activeSection, onSectionChange }: Dashboar
               <span className="text-xs mt-1">{item.title}</span>
             </Button>
           ))}
+          <LanguageToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" className="flex flex-col items-center py-2 h-auto">
