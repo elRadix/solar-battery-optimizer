@@ -8,6 +8,18 @@ export const BatteryHealthSummary = () => {
         <CardTitle>Battery Health Summary</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        <div className="space-y-4">
+          <p className="text-muted-foreground">
+            This comprehensive health summary provides an overview of your battery system's current 
+            condition and performance metrics. Regular monitoring of these indicators helps predict 
+            and prevent potential issues while ensuring optimal system operation.
+          </p>
+          <p className="text-muted-foreground">
+            The analysis combines historical data with current measurements to provide actionable 
+            insights and recommendations for maintaining peak performance of your battery system.
+          </p>
+        </div>
+
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <h3 className="font-semibold flex items-center gap-2">
