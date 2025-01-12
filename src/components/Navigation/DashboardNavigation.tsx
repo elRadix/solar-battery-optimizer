@@ -15,7 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const menuItems = [
   {
@@ -75,7 +75,12 @@ export const DashboardNavigation = ({ activeSection, onSectionChange }: Dashboar
       {/* Desktop Navigation */}
       <nav className="hidden md:block fixed top-0 left-0 right-0 h-16 bg-background border-b z-50">
         <div className="container h-full mx-auto px-4 flex items-center space-x-4">
-          <span className="font-semibold text-lg">Energy Dashboard</span>
+          <Link to="/">
+            <Button variant="ghost" size="sm" className="gap-2">
+              <Home className="h-4 w-4" />
+              Home
+            </Button>
+          </Link>
           <div className="flex-1 flex items-center justify-center space-x-2">
             {menuItems.map((item) => (
               <Button
@@ -95,7 +100,16 @@ export const DashboardNavigation = ({ activeSection, onSectionChange }: Dashboar
       {/* Mobile Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t z-50">
         <div className="grid grid-cols-4 gap-1 p-2">
-          {menuItems.slice(0, 3).map((item) => (
+          <Link to="/" className="col-span-1">
+            <Button
+              variant="ghost"
+              className="flex flex-col items-center py-2 h-auto w-full"
+            >
+              <Home className="h-5 w-5" />
+              <span className="text-xs mt-1">Home</span>
+            </Button>
+          </Link>
+          {menuItems.slice(0, 2).map((item) => (
             <Button
               key={item.value}
               variant={activeSection === item.value ? "default" : "ghost"}
@@ -115,7 +129,7 @@ export const DashboardNavigation = ({ activeSection, onSectionChange }: Dashboar
             </SheetTrigger>
             <SheetContent side="bottom" className="h-[80vh]">
               <div className="grid grid-cols-2 gap-4 pt-6">
-                {menuItems.slice(3).map((item) => (
+                {menuItems.slice(2).map((item) => (
                   <Button
                     key={item.value}
                     variant={activeSection === item.value ? "default" : "ghost"}
